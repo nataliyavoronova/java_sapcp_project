@@ -187,7 +187,7 @@
             <!-- Set compiler to officially supported JDK version for the given SAP Cloud Platform SDK for Neo environment -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>1.7</version>
                 <configuration>
                     <source>${sap.cloud.jdk.version}</source>
                     <target>${sap.cloud.jdk.version}</target>
