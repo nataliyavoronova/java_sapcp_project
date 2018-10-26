@@ -1,8 +1,5 @@
 language: java
 install: true
-jdk: oraclejdk8
-before_install:
-  - chmod +x mvn
 
 env:
   global:
