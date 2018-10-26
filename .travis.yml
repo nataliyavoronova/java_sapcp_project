@@ -1,3 +1,16 @@
-sudo: false
 language: java
-jdk: oraclejdk8
+env:
+  global:
+  - CXX=g++-4.8
+  - CF_APP=verycoolapp
+  - secure: S9CC1bwRmmizB4IbPCjjwYvpkxAlp56POJAhPu+xqLl1ZV5GShOuJIpHgX6ALx0bsYG2L0qI1KTXrHxDf7N/0kwPt/HdCHvWmMNgftu+KOAzi3J3+5tN8VmiR2gH2TNT6y7PfOT8kEeiZdsDf+AcFRqenRmyK9quIfgxbhIQMxt+FcaxkedsQT/RheDsEfEuV5oXEc7npt7Oi1bkI5QX3bVJR5zBqH3WEoaucUaStENn8Cuiv/uCCkZEQe6wlj0NAq5vZyRPcKLpthLxCmuWncUTwQdogQGrM8R2/HCr0yFW2pV/nUv2nha02G85vlcXzNDfHCO/tGCchqfs0cDlnRIzaYG/aTaDCxvaLGHEVj3Pdj0IkM2IppDRDgDxHTTDEJLLfQ3GaDJgJX+5Vk2na5uMy35GFL0Vk41aZoXFC98pymifQaEaUp5aA7Xu4Se8YUZ7t6QDKZp+N9S57b8XBy39OWGVnhHRyzXRk+lGCmiROkV3jTUyAAq60JmY3sKaMjju3hVCD4FX9C4xU+OuWAb+QUd1GGSv0hlEa1Ff6EL7vLIh5ljvhAshUTVU8q41MLLBBDS5MwIQgmdRBfeDmV/iRoPLJWqJOZlElORW0Gge7nemQ1Z7HeNaKSpbgOic/ejY7uC9x7QmZbTUrx9RpEOpHu/2PIMPnVZDwkf7yGE=
+  - secure: BFP+wivdmQZofI7kPrLw9uLIZNo/LwYJc2aw7MaTNfQySQNNbaaHVQ+2ynu7LcOTGW1nqo+d1djtA0oDxh3JdoQ2NtYeIXamPS81/+j/0zs9OHUI6umpSY9NUp+AML0NPdUyZAn3sfDfya1kcXWO92pKtP7btle8RtZdSbj7yomdLP3BnVNU5Y9LAnvDqEgtOFwfZ9ndLxDTeGSy5OkhFRgy00W7xkivOSmhxppi/UU1xbgVaI8FWPYzvA+QCuo6cP3iFg8d2TXjM7ImmdTKJ7glyTtP3YCjuHB+5LOMw1Hsr5dw8zyrZc5iXIl66BmAWicJxySbuODAEm46xT4YKu4n94OO1W4Rf6cjGExrq0cL9vwXqqiGT7pN1uJ4EDc69d9Kp5QyEJreSuXSZ6jLDrqXQHVu9LAGugJdpJzg5mpYt7naxzQjo273/JBdBVvEhFiZ5VJIt50dYVuYBGp0LSb0C8mlEtjw/sDLkKQID9LdMNUftfvjDsIUJK5hwZmZ6Y4bdWWU5RdZwulAfFRP3vc8RGlmTB6n89WEoTHqqStlv+cSh9ij9H6wdCJjI0JbjPgNrVSPW2/zDZIQyP1h+NDRE2bATUIjY6lt3US0jvN5fTMUvgZlVlCc6ho0t4WYGe2CWScOfFDJPL5kMOuPdUFt3xRibxqDm2AF78MZjRw=
+script:
+- sudo mkdir /mvnbuild
+- mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -P
+  cloud-integration-tests clean install -Denv.CF_API=$CF_API -Denv.CF_ORGANIZATION=$CF_ORGANIZATION
+  -Denv.CF_SPACE=$CF_SPACE -Denv.CF_USERNAME=$CF_USERNAME -Denv.CF_PASSWORD=$CF_PASSWORD
+- if [ $TRAVIS_TEST_RESULT -eq 0 ]; then chmod +x ./cf_blue_green_travis.sh; sudo
+  add-apt-repository -y ppa:ubuntu-toolchain-r/test; sudo apt-get -qq update; sudo
+  apt-get -qq install g++-4.8; sudo ./cf_blue_green_travis.sh; fi
+sudo: required
