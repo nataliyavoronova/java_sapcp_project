@@ -10,7 +10,7 @@ env:
 script:
 - sudo mkdir /mvnbuild
 - mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Denv.CF_API=$CF_API -Denv.CF_ORGANIZATION=$CF_ORGANIZATION -Denv.CF_SPACE=$CF_SPACE -Denv.CF_USERNAME=$CF_USERNAME -Denv.CF_PASSWORD=$CF_PASSWORD
-- mvn clean install -P cloud-integration-tests
+- mvn install
 
 - 'if [ $TRAVIS_TEST_RESULT -eq 0 ]; then
  chmod +x ./cf_blue_green_travis.sh;
