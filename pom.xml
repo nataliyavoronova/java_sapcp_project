@@ -36,10 +36,15 @@
 
         <!-- Property that holds the data center host is pre-defined below, but may be overwritten if required, e.g.: -->
         <!-- mvn clean verify -P cloud-integration-tests ... -Dsap.cloud.host=hanatrial.ondemand.com -->
-        <sap.cloud.host>hana.ondemand.com</sap.cloud.host>
+        <!--<sap.cloud.host>hana.ondemand.com</sap.cloud.host>-->
 
         <!-- Property that holds the name of the application under which it will later appear in the cloud -->
-        <sap.cloud.application>sample</sap.cloud.application>
+        <!--<sap.cloud.application>sample</sap.cloud.application>-->
+		<sap.cloud.api>${env.CF_API}</sap.cloud.api>
+		<sap.cloud.org>${env.CF_ORGANIZATION}</sap.cloud.org>
+		<sap.cloud.space>${env.CF_SPACE}</sap.cloud.space>
+		<sap.cloud.username>${env.CF_USERNAME}</sap.cloud.username>
+		<sap.cloud.password>${env.CF_PASSWORD}</sap.cloud.password>
 
         <!-- Properties that hold the local server configuration required for local integration-testing -->
         <local.server.root>${project.build.directory}/server</local.server.root>
@@ -332,7 +337,8 @@
             the maven-failsafe-plugin (execute-cloud-integration-tests) and finally stop the cloud application (stop-cloud-application) -->
         <!-- Note that you need to provide Maven properties sap.cloud.account, sap.cloud.username, and sap.cloud.password 
             for the operations to pass successfully and https.proxyHost and possibly https.proxyPort if you have a proxy! -->
-        <profile>
+        
+		<!--<profile>
             <id>cloud-integration-tests</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -394,7 +400,7 @@
                             <!-- This execution can be overridden in the sample pom.xml in order to execute additional steps 
                                 between deployment and start of the sample application. The additional execution must be specified with the neo-java-web-maven-plugin 
                                 and the same id "prepare-cloud-application" and phase "pre-integration-test" -->
-                            <execution>
+                           <!-- <execution>
                                 <id>prepare-cloud-application</id>
                                 <phase>pre-integration-test</phase>
                             </execution>
@@ -456,7 +462,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile> -->
 
         <!-- The local integration tests will install a local server from the repository that is contained inside the SAP Cloud 
             Platform SDK for Neo environment(install-local-server), deploy the sample application (deploy-local-application), allow samples to run 
