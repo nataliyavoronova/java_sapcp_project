@@ -9,8 +9,7 @@ env:
   - secure: JsfJFjMsOaA9e0bPwmr0sg2Q8oFMoc/IjcGFBNh2XM2hs081KtlRvlaVO0Bdk7Qj4ykSAOXMMiuPRP/RXJDbb8n7zHeMv68w1lebStXr3P7sC53oa7tf7Pu+zlwIIVRA6SoAKDLy6sznSGHUBtmr+fYze21gXk92ZonOUuysb6CFpuZQfWgvTHNyzaQM7FqhsuOVSCY5w61p2G+8X1G2FeKNtu277q7Z1oxz2xmLrXenntzIpTK0wSvMCThmNJ47LVlzbMR3xeTqw4E/uj6jxQL9QpwHHnrAxWIm5JFyEgb1FbC/4uz9oMyY/4zvFLeIYFvSCMhvbqyLevfalLXI4qa19M1NtKM3kKEvLZpffmgREmewrq4FbQ8Slzv5h5mCKhH2KKn/651j98Em2vKaCkTA51KaWXlPJ2SJLMmLAJwx0x19dLaqwc7XzG8uIkvrriDhsPZ2v/5vapmtT0kMCOvOp2JVzI/YfYdxLC+vKjNhEuLAfFpgQAlrlTk9YJierWKdipa5DNV6vmTAPFLAkp+3/agT4RLqrWLvq5xjgTLvFfqYUJFG++Enf3ImXyaGc84uMN5P3MuY098cCAuThPv0iiDhpc3o//ZV0fN6JrkfsrWzUVhFiuIEdY76hDhpPafDVWj/+GVhl8EtpyOYcBJkuN+1J85yFt8OHQoUTqk=
 script:
 - sudo mkdir /mvnbuild
-- mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Denv.CF_API=$CF_API -Denv.CF_ORGANIZATION=$CF_ORGANIZATION -Denv.CF_SPACE=$CF_SPACE -Denv.CF_USERNAME=$CF_USERNAME -Denv.CF_PASSWORD=$CF_PASSWORD
-- mvn install
+- mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -P cloud-integration-tests clean install -Denv.CF_API=$CF_API -Denv.CF_ORGANIZATION=$CF_ORGANIZATION -Denv.CF_SPACE=$CF_SPACE -Denv.CF_USERNAME=$CF_USERNAME -Denv.CF_PASSWORD=$CF_PASSWORD
 
 - 'if [ $TRAVIS_TEST_RESULT -eq 0 ]; then
  chmod +x ./cf_blue_green_travis.sh;
